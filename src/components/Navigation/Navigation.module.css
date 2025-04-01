@@ -1,0 +1,18 @@
+.link {
+  display: inline-block;
+  padding: 10px;
+  color: var(--text-main-color);
+  cursor: pointer;
+}
+.link:hover,
+.link:focus {
+  color: var(--accent-color);
+  outline: 1px dotted tomato;
+}
+.link:not(:last-child) {
+  margin-right: 32px;
+}
+
+.active {
+  color: var(--accent-active-color);
+}

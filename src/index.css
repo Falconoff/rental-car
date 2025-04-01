@@ -1,0 +1,58 @@
+:root {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+  line-height: 1.25;
+  font-weight: 500;
+  font-size: 16px;
+  color: tomato;
+
+  --text-main-color: #101828;
+  --text-secondary-color: #8e929a;
+  --accent-color: #3470ff;
+  --accent-active-color: #0b44cd;
+  --gray-color: #dadde1;
+  --light-gray-color: #f2f4f7;
+  --very-light-gray-color: #f7f7f7;
+  --white-color: #ffffff;
+
+  /* background-color: #242424; */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}

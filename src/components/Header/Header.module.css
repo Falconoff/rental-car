@@ -1,0 +1,14 @@
+.header {
+  padding-block: 14px;
+
+  background-color: var(--light-gray-color);
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: #ddf; */
+}
