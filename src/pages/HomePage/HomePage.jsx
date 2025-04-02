@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import css from "./HomePage.module.css";
 
 import bgImg from "../../images/hero-img.jpg";
+import Button from "../../components/Button/Button";
 
 const HomePage = () => {
   return (
@@ -14,9 +15,9 @@ const HomePage = () => {
       </p>
       <Link
         to="/catalog"
-        className={css.btn}
+        // className={css.btn}
       >
-        View Catalog
+        <Button>View Catalog</Button>
       </Link>
     </div>
   );

@@ -10,5 +10,7 @@
   --very-light-gray-color: #f7f7f7;
   --white-color: #ffffff;
 
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-duration: 250ms;
   /* background-color: #242424; */
 }

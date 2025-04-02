@@ -1,0 +1,24 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 276px;
+  height: 44px;
+
+  border-radius: 12px;
+  background: var(--accent-color);
+
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--white-color);
+
+  cursor: pointer;
+  transition: background-color var(--trans-duration)
+    var(--timing-function);
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: var(--accent-active-color);
+}
