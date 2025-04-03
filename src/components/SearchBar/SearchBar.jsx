@@ -19,13 +19,6 @@ let brandArr = [
   "Volvo",
 ];
 
-// const buildDropdownClass = ({ isOpen }) => {
-//   return clsx(
-//     css.dropdownWrap,
-//     isOpen && "visually-hidden2",
-//   );
-// };
-
 const SearchBar = () => {
   // const brandFieldId = useId();
   // const priceFieldId = useId();
@@ -62,8 +55,6 @@ const SearchBar = () => {
             !isOpen && "visually-hidden",
           )}
         >
-          {/* <div className={buildDropdownClass}> */}
-          {/* <div className={css.dropdownList}> */}
           <div className={css.dropdownList}>
             {brandArr.length > 0 ? (
               <ul>
@@ -85,51 +76,6 @@ const SearchBar = () => {
           </div>
         </div>
       </div>
-
-      <br />
-      {/*  
-      <form onSubmit={handleSubmit}>
-        <div>
-          <select
-            name="carBrand"
-            value={carBrand}
-            onChange={evt => setCarBrand(evt.target.value)}
-            // id=""
-          >
-            <option value="Buick">Buick</option>
-            <option value="Volvo">Volvo</option>
-            <option value="Subaru">Subaru</option>
-          </select>
-        </div>
-
-        <div>
-          <select name="rentalPrice">
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-
-        <div>
-          <select name="mileageMin">
-            <option value="0">0</option>
-            <option value="1000">1000</option>
-            <option value="2000">2000</option>
-          </select>
-        </div>
-
-        <div>
-          <select name="mileageMax">
-            <option value="500">500</option>
-            <option value="1000">1000</option>
-            <option value="5000">5000</option>
-          </select>
-        </div>
-        <button type="submit">
-          <Button text="Search" />
-        </button>
-      </form>
-      */}
     </>
   );
 };
