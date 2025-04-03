@@ -1,7 +1,7 @@
 .header {
   padding-block: 14px;
 
-  background-color: var(--light-gray-color);
+  background-color: var(--badges-color);
 }
 
 .wrapper {

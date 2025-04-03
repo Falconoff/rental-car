@@ -3,5 +3,5 @@
   margin: 0 auto;
 
   padding-inline: 10px;
-  /* background-color: rgb(13, 201, 129); */
+  outline: 1px dotted rgb(13, 201, 129);
 }

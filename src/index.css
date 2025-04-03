@@ -5,9 +5,9 @@
   --text-secondary-color: #8e929a;
   --accent-color: #3470ff;
   --accent-active-color: #0b44cd;
-  --gray-color: #dadde1;
-  --light-gray-color: #f2f4f7;
-  --very-light-gray-color: #f7f7f7;
+  --gray-light-color: #dadde1;
+  --badges-color: #f2f4f7;
+  --inputs-color: #f7f7f7;
   --white-color: #ffffff;
 
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);

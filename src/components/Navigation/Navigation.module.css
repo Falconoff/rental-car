@@ -4,7 +4,7 @@
   color: var(--text-main-color);
 
   cursor: pointer;
-  transition: background-color var(--trans-duration)
+  transition: color var(--trans-duration)
     var(--timing-function);
 }
 
