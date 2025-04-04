@@ -2,6 +2,7 @@ import { useId, useState } from "react";
 import clsx from "clsx";
 
 import Button from "../Button/Button";
+import Select from "../Select/Select";
 
 import css from "./SearchBar.module.css";
 
@@ -18,6 +19,7 @@ let brandArr = [
   "Subaru",
   "Volvo",
 ];
+let priceArr = [10, 20, 30, 40, 50, 60];
 
 const SearchBar = () => {
   // const brandFieldId = useId();
@@ -32,18 +34,27 @@ const SearchBar = () => {
     console.log("brand: ", brand);
   };
 
-  const handleSubmit = evt => {
-    evt.preventDefault();
-    console.log(evt.target);
-  };
-
   return (
     <>
-      <div className={css.wrapper}>
+      <p>Search Bar here</p>
+      <Select
+        optionsArr={brandArr}
+        // choosenOption={ }
+        label={"Car brand"}
+        placeholder={"Choose a brand"}
+      />
+      <Select
+        optionsArr={priceArr}
+        // choosenOption={ }
+        label={"Price / 1 hour"}
+        isPrice
+        placeholder={"Choose a price"}
+      />
+      {/* <div className={css.wrapper}>
         <div
           className={css.selectBtn}
           onClick={() => {
-            setIsOpen(true);
+            setIsOpen(!isOpen);
           }}
         >
           <span>{carBrand || "Choose a brand"}</span>
@@ -75,7 +86,7 @@ const SearchBar = () => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
