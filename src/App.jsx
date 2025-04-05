@@ -1,12 +1,13 @@
 import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
+import { Route, Routes } from "react-router-dom";
+
 import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
 import CatalogPage from "./pages/CatalogPage/CatalogPage";
-import { Route, Routes } from "react-router-dom";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Header from "./components/Header/Header";
+import CarPage from "./pages/CarPage/CarPage";
+import Container from "./components/Container/Container";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
           <Route
             path="/catalog"
             element={<CatalogPage />}
+          />
+          <Route
+            path="/car"
+            element={<CarPage />}
           />
 
           <Route

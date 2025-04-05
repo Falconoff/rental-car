@@ -2,9 +2,14 @@ import { useState } from "react";
 import clsx from "clsx";
 
 // import Button from "../Button/Button";
-import sprite from "../../images/sprite.svg";
+// import sprite from "../../images/sprite.svg";
+// import * as icons from "../../utils/icons.jsx";
 
 import css from "./Select.module.css";
+import {
+  ArrDownIcon,
+  ArrUpIcon,
+} from "../../assets/Icons/Icons.jsx";
 // import {
 //   makeArrayForMinMileage,
 //   makeArrayForMaxMileage,
@@ -23,21 +28,21 @@ let maxMileage = "5700";
 //   makeArrayForMaxMileage(maxMileage),
 // );
 
-const ArrDown = () => {
-  return (
-    <svg className={css.icon}>
-      <use href={sprite + "#icon-arrow-down"} />
-    </svg>
-  );
-};
+// const ArrDown = () => {
+//   return (
+//     <svg className={css.icon}>
+//       <use href={sprite + "#icon-arrow-down"} />
+//     </svg>
+//   );
+// };
 
-const ArrUp = () => {
-  return (
-    <svg className={css.icon}>
-      <use href={sprite + "#icon-arrow-up"} />
-    </svg>
-  );
-};
+// const ArrUp = () => {
+//   return (
+//     <svg className={css.icon}>
+//       <use href={sprite + "#icon-arrow-up"} />
+//     </svg>
+//   );
+// };
 
 const Select = ({
   optionsArr,
@@ -73,7 +78,7 @@ const Select = ({
             : value && isPrice
             ? "To $" + value
             : value}
-          {isOpen ? <ArrUp /> : <ArrDown />}
+          {isOpen ? <ArrUpIcon /> : <ArrDownIcon />}
         </button>
         <div
           className={clsx(

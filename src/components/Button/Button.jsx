@@ -2,7 +2,12 @@ import clsx from "clsx";
 
 import css from "./Button.module.css";
 
-const Button = ({ text, wide, narrow }) => {
+const Button = ({
+  text,
+  wide,
+  narrow,
+  type = "button",
+}) => {
   return (
     <button
       className={clsx(
@@ -10,6 +15,7 @@ const Button = ({ text, wide, narrow }) => {
         wide && css.wide,
         narrow && css.narrow,
       )}
+      type={type}
     >
       {text}
     </button>
