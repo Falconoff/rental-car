@@ -13,7 +13,11 @@ const HomePage = () => {
         Reliable and budget-friendly rentals for any journey
       </p>
       <Link to="/catalog">
-        <Button text="View Catalog" />
+        <Button
+          text="View Catalog"
+          // variant="wide"
+          wide
+        />
       </Link>
     </div>
   );

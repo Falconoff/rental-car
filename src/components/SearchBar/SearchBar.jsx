@@ -3,6 +3,7 @@ import clsx from "clsx";
 
 import Button from "../Button/Button";
 import Select from "../Select/Select";
+import NumInput from "../NumInput/NumInput";
 
 import css from "./SearchBar.module.css";
 
@@ -20,28 +21,49 @@ let brandArr = [
   "Volvo",
 ];
 let priceArr = [10, 20, 30, 40, 50, 60];
+let maxMileage = "5700";
 
 const SearchBar = () => {
   // const brandFieldId = useId();
   // const priceFieldId = useId();
   // const mileageFieldId = useId();
   const [carBrand, setCarBrand] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const [price, setPrice] = useState("");
+  const [minMileageSelected, setMinMileageSelected] =
+    useState("");
+  const [maxMileageSelected, setMaxMileageSelected] =
+    useState("");
 
-  const handleClick = brand => {
+  const handleClickBrand = brand => {
     setCarBrand(brand);
-    setIsOpen(false);
-    console.log("brand: ", brand);
+    // setIsOpen(false);
+    // console.log("brand: ", brand);
+  };
+
+  const handleClickPrice = price => {
+    setPrice(price);
+    // setIsOpen(false);
+    // console.log("price: ", price);
+  };
+
+  const handleClickMin = value => {
+    setMinMileageSelected(value);
+    // setIsOpen(false);
+    //  console.log("price: ", price);
+  };
+  const handleClickMax = value => {
+    setMaxMileageSelected(value);
   };
 
   return (
-    <>
-      <p>Search Bar here</p>
+    <div className={css.searchBar}>
       <Select
         optionsArr={brandArr}
         // choosenOption={ }
         label={"Car brand"}
         placeholder={"Choose a brand"}
+        value={carBrand}
+        onSelect={handleClickBrand}
       />
       <Select
         optionsArr={priceArr}
@@ -49,45 +71,23 @@ const SearchBar = () => {
         label={"Price / 1 hour"}
         isPrice
         placeholder={"Choose a price"}
+        value={price}
+        onSelect={handleClickPrice}
       />
-      {/* <div className={css.wrapper}>
-        <div
-          className={css.selectBtn}
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        >
-          <span>{carBrand || "Choose a brand"}</span>
-          <span>{isOpen ? "A" : "V"}</span>
-        </div>
-        <div
-          className={clsx(
-            css.dropdownWrap,
-            !isOpen && "visually-hidden",
-          )}
-        >
-          <div className={css.dropdownList}>
-            {brandArr.length > 0 ? (
-              <ul>
-                {brandArr.map(brand => {
-                  return (
-                    <li
-                      className={css.dropdownItem}
-                      key={brand}
-                      onClick={() => handleClick(brand)}
-                    >
-                      {brand}
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p>No brands</p>
-            )}
-          </div>
-        </div>
-      </div> */}
-    </>
+
+      <NumInput
+        maxMileage={maxMileage}
+        onSelectMin={handleClickMin}
+        onSelectMax={handleClickMax}
+        valueFrom={minMileageSelected}
+        valueTo={maxMileageSelected}
+      />
+
+      <Button
+        text="Search"
+        narrow
+      />
+    </div>
   );
 };
 

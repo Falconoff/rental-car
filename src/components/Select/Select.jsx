@@ -5,6 +5,23 @@ import clsx from "clsx";
 import sprite from "../../images/sprite.svg";
 
 import css from "./Select.module.css";
+// import {
+//   makeArrayForMinMileage,
+//   makeArrayForMaxMileage,
+// } from "../../utils/calc";
+
+let maxMileage = "5700";
+// let res = null;
+// res = Math.ceil(Number(maxMileage) / 1000) * 1000;
+
+// console.log(
+//   "res MIN: ",
+//   makeArrayForMinMileage(maxMileage),
+// );
+// console.log(
+//   "res MAX: ",
+//   makeArrayForMaxMileage(maxMileage),
+// );
 
 const ArrDown = () => {
   return (
@@ -28,14 +45,17 @@ const Select = ({
   label,
   isPrice,
   placeholder,
+  value,
+  onSelect,
 }) => {
-  const [choosenOption, setChoosenOption] = useState("");
+  // const [choosenOption, setChoosenOption] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = option => {
-    setChoosenOption(option);
+    // setChoosenOption(option);
+    onSelect(option);
     setIsOpen(false);
-    console.log("option: ", option);
+    // console.log("option: ", option);
   };
 
   return (
@@ -48,11 +68,11 @@ const Select = ({
             setIsOpen(!isOpen);
           }}
         >
-          {!choosenOption
+          {!value
             ? placeholder
-            : choosenOption && isPrice
-            ? "To $" + choosenOption
-            : choosenOption}
+            : value && isPrice
+            ? "To $" + value
+            : value}
           {isOpen ? <ArrUp /> : <ArrDown />}
         </button>
         <div
@@ -64,14 +84,14 @@ const Select = ({
           <div className={css.dropdownList}>
             {optionsArr.length > 0 ? (
               <ul>
-                {optionsArr.map(brand => {
+                {optionsArr.map(option => {
                   return (
                     <li
                       className={css.dropdownItem}
-                      key={brand}
-                      onClick={() => handleClick(brand)}
+                      key={option}
+                      onClick={() => handleClick(option)}
                     >
-                      {brand}
+                      {option}
                     </li>
                   );
                 })}
