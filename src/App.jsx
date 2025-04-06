@@ -22,9 +22,9 @@ function App() {
           <Route
             path="/catalog"
             element={<CatalogPage />}
-          ></Route>
+          />
           <Route
-            path="/catalog/:id"
+            path="/catalog/:carId"
             element={<CarPage />}
           />
 

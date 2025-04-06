@@ -7,23 +7,23 @@ import NumInput from "../NumInput/NumInput";
 
 import css from "./SearchBar.module.css";
 
-let brandArr = [
-  "Audi",
-  "BMW",
-  "Buick",
-  "Hundai",
-  "Suzuki",
-  "Toyota",
-  "Fiat",
-  "Mers",
-  "Opel",
-  "Subaru",
-  "Volvo",
-];
-let priceArr = [10, 20, 30, 40, 50, 60];
+// let brandArr = [
+//   "Audi",
+//   "BMW",
+//   "Buick",
+//   "Hundai",
+//   "Suzuki",
+//   "Toyota",
+//   "Fiat",
+//   "Mers",
+//   "Opel",
+//   "Subaru",
+//   "Volvo",
+// ];
+// let priceArr = [10, 20, 30, 40, 50, 60];
 let maxMileage = "5700";
 
-const SearchBar = () => {
+const SearchBar = ({ brands, prices }) => {
   const [carBrand, setCarBrand] = useState("");
   const [price, setPrice] = useState("");
   const [minMileageSelected, setMinMileageSelected] =
@@ -49,14 +49,14 @@ const SearchBar = () => {
   return (
     <div className={css.searchBar}>
       <Select
-        optionsArr={brandArr}
+        optionsArr={brands}
         label={"Car brand"}
         placeholder={"Choose a brand"}
         value={carBrand}
         onSelect={handleClickBrand}
       />
       <Select
-        optionsArr={priceArr}
+        optionsArr={prices}
         label={"Price / 1 hour"}
         isPrice
         placeholder={"Choose a price"}

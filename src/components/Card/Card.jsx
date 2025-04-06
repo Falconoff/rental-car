@@ -33,7 +33,7 @@ const Card = ({ car }) => {
         <span>{car.mileage} km</span>
       </p>
       <Link
-        to="/car/"
+        to={`${car.id}`}
         className={css.link}
       >
         <Button

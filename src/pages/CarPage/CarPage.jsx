@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import Container from "../../components/Container/Container";
-import css from "./CarPage.module.css";
-import carImg from "../../images/car-image.jpg";
 import Button from "../../components/Button/Button";
 import {
   CalendarIcon,
@@ -10,134 +11,171 @@ import {
   FuelPumpIcon,
   GearIcon,
 } from "../../assets/Icons/Icons";
+import { fetchCarById } from "../../api/rentalCarsApi";
+
+import css from "./CarPage.module.css";
+
+const getAddressArr = data => {
+  return data.address.split(",");
+};
 
 const CarPage = () => {
+  const { carId, setCarId } = useParams();
+  const [car, setCar] = useState({});
+  const [addressArray, setAddressArray] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    async function fetchRentalCar() {
+      try {
+        setLoading(true);
+        const data = await fetchCarById(carId);
+        // console.log("data: ", data);
+        setAddressArray(getAddressArr(data));
+        setCar(data);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchRentalCar();
+  }, []);
+
   return (
     <Container>
       <h2 className="visually-hidden">Car Page</h2>
-      <div className={css.wrapper}>
-        <div className={css.leftColumn}>
-          <img
-            src={carImg}
-            alt="Buick Enclave"
-            className={css.carImage}
-          />
-          <form className={css.form}>
-            <h3 className={css.formTitle}>
-              Book your car now
-            </h3>
-            <p className={css.formText}>
-              Stay connected! We are always ready to help
-              you.
-            </p>
-            <div className={css.inputsWrap}>
-              <input
-                type="text"
-                placeholder="Name*"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email*"
-                required
-              />
-              <input
-                type="date"
-                placeholder="Booking date"
-              />
-              <textarea placeholder="Comment"></textarea>
-            </div>
-            {/* <button type="submit">Send</button> */}
-            <Button
-              text="Send"
-              narrow
-              type="submit"
+
+      {loading && <p>Loading data, please wait...</p>}
+      {error && (
+        <p>
+          Whoops, something went wrong! Please try reloading
+          this page!
+        </p>
+      )}
+
+      {car.brand && (
+        <div className={css.wrapper}>
+          <div className={css.leftColumn}>
+            <img
+              src={car.img}
+              alt={car.brand + " " + car.model}
+              className={css.carImage}
             />
-          </form>
+            <form className={css.form}>
+              <h3 className={css.formTitle}>
+                Book your car now
+              </h3>
+              <p className={css.formText}>
+                Stay connected! We are always ready to help
+                you.
+              </p>
+              <div className={css.inputsWrap}>
+                <input
+                  type="text"
+                  placeholder="Name*"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Email*"
+                  required
+                />
+                <input
+                  type="date"
+                  placeholder="Booking date"
+                />
+                <textarea placeholder="Comment"></textarea>
+              </div>
+
+              {/* <button type="submit">Send</button> */}
+              <Button
+                text="Send"
+                narrow
+                type="submit"
+              />
+            </form>
+          </div>
+
+          <div className={css.rightColumn}>
+            <div className={css.carMain}>
+              <h3 className={css.carName}>
+                {car.brand + " " + car.model}, {car.year}
+              </h3>
+              <span className={css.carId}>Id: 9582</span>
+            </div>
+            <p className={css.location}>
+              <LocationIcon />
+              {addressArray[1]}, {addressArray[2]}
+              &nbsp;&nbsp;&nbsp; Mileage: {car.mileage} km
+            </p>
+            <p className={css.price}>${car.rentalPrice}</p>
+            <p className={css.description}>
+              {car.description}
+            </p>
+
+            <div className={css.section}>
+              <h4 className={css.sectionTitle}>
+                Rental Conditions:
+              </h4>
+              <ul>
+                {car.rentalConditions.map(
+                  (condition, index) => {
+                    return (
+                      <li
+                        className={css.listItem}
+                        key={index}
+                      >
+                        <CheckIcon /> {condition}
+                      </li>
+                    );
+                  },
+                )}
+              </ul>
+            </div>
+
+            <div className={css.section}>
+              <h4 className={css.sectionTitle}>
+                Car Specifications:
+              </h4>
+              <ul>
+                <li className={css.listItem}>
+                  <CalendarIcon /> Year: {car.year}
+                </li>
+                <li className={css.listItem}>
+                  <CarIcon /> Type: {car.type}
+                </li>
+                <li className={css.listItem}>
+                  <FuelPumpIcon /> Fuel Consumption:{" "}
+                  {car.fuelConsumption}
+                </li>
+                <li className={css.listItem}>
+                  <GearIcon /> Engine Size: {car.engineSize}
+                </li>
+              </ul>
+            </div>
+
+            <div className={css.section}>
+              <h4 className={css.sectionTitle}>
+                Accessories and functionalities:
+              </h4>
+              <ul>
+                {car.accessories.map((accessory, index) => {
+                  return (
+                    <li
+                      className={css.listItem}
+                      key={index}
+                    >
+                      <CheckIcon /> {accessory}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
         </div>
-
-        <div className={css.rightColumn}>
-          <div className={css.carMain}>
-            <h3 className={css.carName}>
-              Buick Enclave, 2008
-            </h3>
-            <span className={css.carId}>Id: 9582</span>
-          </div>
-          <p className={css.location}>
-            <LocationIcon /> Kyiv, Ukraine
-            &nbsp;&nbsp;&nbsp; Mileage: 5,858 km
-          </p>
-          <p className={css.price}>$40</p>
-          <p className={css.description}>
-            The Buick Enclave is a stylish and spacious SUV
-            known for its comfortable ride and luxurious
-            features.
-          </p>
-
-          <div className={css.section}>
-            <h4 className={css.sectionTitle}>
-              Rental Conditions:
-            </h4>
-            <ul>
-              <li className={css.listItem}>
-                <CheckIcon /> Minimum age: 25
-              </li>
-              <li className={css.listItem}>
-                <CheckIcon /> Security deposit required
-              </li>
-              <li className={css.listItem}>
-                <CheckIcon /> Valid driver's license
-              </li>
-            </ul>
-          </div>
-
-          <div className={css.section}>
-            <h4 className={css.sectionTitle}>
-              Car Specifications:
-            </h4>
-            <ul>
-              <li className={css.listItem}>
-                <CalendarIcon /> Year: 2008
-              </li>
-              <li className={css.listItem}>
-                <CarIcon /> Type: SUV
-              </li>
-              <li className={css.listItem}>
-                <FuelPumpIcon /> Fuel Consumption: 10.5
-              </li>
-              <li className={css.listItem}>
-                <GearIcon /> Engine Size: 3.6L V6
-              </li>
-            </ul>
-          </div>
-
-          <div className={css.section}>
-            <h4 className={css.sectionTitle}>
-              Accessories and functionalities:
-            </h4>
-            <ul>
-              <li className={css.listItem}>
-                <CheckIcon /> Leather seats
-              </li>
-              <li className={css.listItem}>
-                <CheckIcon /> Panoramic sunroof
-              </li>
-              <li className={css.listItem}>
-                <CheckIcon /> Remote start
-              </li>
-              <li className={css.listItem}>
-                <CheckIcon /> Blind-spot monitoring
-              </li>
-              <li className={css.listItem}>
-                <CheckIcon /> Power liftgate
-              </li>
-              <li className={css.listItem}>
-                <CheckIcon /> Premium audio system
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      )}
     </Container>
   );
 };
