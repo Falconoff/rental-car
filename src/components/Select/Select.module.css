@@ -33,6 +33,7 @@
   width: 204px;
   height: 200px;
   /* max-height: 282px; */
+  z-index: 10;
 
   border-radius: 12px;
   padding: 14px;
@@ -81,9 +82,3 @@
 .dropdownItem:focus {
   color: var(--text-main-color);
 }
-
-/* .icon {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
-} */
