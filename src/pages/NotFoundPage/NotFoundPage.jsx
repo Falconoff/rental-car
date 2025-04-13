@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom";
+import Container from "../../components/Container/Container";
+
+import css from "./NotFoundPage.module.css";
+import Button from "../../components/Button/Button";
 
 const NotFoundPage = () => {
   return (
-    <div>
-      <h1>Page Not Found</h1>
+    <Container>
+      <h1 className={css.title}>Page Not Found</h1>
       <Link to="/">
-        <button
-          type="button"
-          className="btn"
-        >
-          Home
-        </button>
+        <Button
+          text="Go to Home Page"
+          wide
+        />
       </Link>
-    </div>
+    </Container>
   );
 };
 
