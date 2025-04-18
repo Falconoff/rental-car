@@ -50,14 +50,14 @@ const SearchBar = ({ brands, prices }) => {
     <div className={css.searchBar}>
       <Select
         optionsArr={brands}
-        label={"Car brand"}
+        labelText={"Car brand"}
         placeholder={"Choose a brand"}
         value={carBrand}
         onSelect={handleClickBrand}
       />
       <Select
         optionsArr={prices}
-        label={"Price / 1 hour"}
+        labelText={"Price / 1 hour"}
         isPrice
         placeholder={"Choose a price"}
         value={price}

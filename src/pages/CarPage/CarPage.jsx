@@ -14,6 +14,8 @@ import {
 import { fetchCarById } from "../../api/rentalCarsApi";
 
 import css from "./CarPage.module.css";
+import Loader from "../../components/Loader/Loader";
+import PageWrapper from "../../components/PageWrapper/PageWrapper";
 
 const getAddressArr = data => {
   return data.address.split(",");
@@ -44,10 +46,12 @@ const CarPage = () => {
   }, []);
 
   return (
-    <Container>
-      <h2 className="visually-hidden">Car Page</h2>
+    <PageWrapper title="Car Page">
+      {/* <Container>
+        <h2 className={"visually-hidden"}>Car Page</h2> */}
 
-      {loading && <p>Loading data, please wait...</p>}
+      {loading && <Loader />}
+
       {error && (
         <p>
           Whoops, something went wrong! Please try reloading
@@ -176,7 +180,8 @@ const CarPage = () => {
           </div>
         </div>
       )}
-    </Container>
+      {/* </Container> */}
+    </PageWrapper>
   );
 };
 

@@ -47,7 +47,7 @@ let maxMileage = "5700";
 const Select = ({
   optionsArr,
   // choosenOption,
-  label,
+  labelText,
   isPrice,
   placeholder,
   value,
@@ -66,7 +66,7 @@ const Select = ({
   return (
     <>
       <div className={css.selectWrapper}>
-        <p className={css.label}>{label}</p>
+        <p className={css.label}>{labelText}</p>
         <button
           className={css.selectBtn}
           onClick={() => {

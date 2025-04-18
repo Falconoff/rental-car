@@ -1,13 +1,13 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
+import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import CatalogPage from "./pages/CatalogPage/CatalogPage";
-import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-import Header from "./components/Header/Header";
 import CarPage from "./pages/CarPage/CarPage";
-import Container from "./components/Container/Container";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+// import Container from "./components/Container/Container";
 
 function App() {
   return (
@@ -27,7 +27,6 @@ function App() {
             path="/catalog/:carId"
             element={<CarPage />}
           />
-
           <Route
             path="*"
             element={<NotFoundPage />}

@@ -1,6 +1,7 @@
 .container {
   width: 1220px;
-  margin: 0 auto;
+  margin-inline: auto;
+  /* margin-top: 84px; */
 
   padding-inline: 10px;
   /* outline: 1px dotted rgb(13, 201, 129); */

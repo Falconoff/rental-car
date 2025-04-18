@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
 // import allCars from "../../all-cars-response.json";
 import Card from "../../components/Card/Card";
 import Container from "../../components/Container/Container";
@@ -10,6 +12,8 @@ import {
 } from "../../api/rentalCarsApi.js";
 
 import css from "./CatalogPage.module.css";
+import Loader from "../../components/Loader/Loader.jsx";
+import PageWrapper from "../../components/PageWrapper/PageWrapper.jsx";
 
 // console.log("allCars: ", allCars);
 
@@ -21,8 +25,11 @@ const CatalogPage = () => {
   const [prices, setPrices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log("searchParams: ", searchParams);
 
   useEffect(() => {
+    setSearchParams("brand");
     async function fetchRentalCars() {
       try {
         setLoading(true);
@@ -54,15 +61,16 @@ const CatalogPage = () => {
   }, [cars]);
 
   return (
-    <Container>
-      <h2 className="visually-hidden">Catalog Page</h2>
+    <PageWrapper title="Catalog Page">
+      {/* <div className={css.mainWrap}>
+        <h2 className="visually-hidden">Catalog Page</h2> */}
 
       <SearchBar
         brands={brands}
         prices={prices}
       />
 
-      {loading && <p>Loading data, please wait...</p>}
+      {loading && <Loader />}
       {error && (
         <p>
           Whoops, something went wrong! Please try reloading
@@ -80,7 +88,8 @@ const CatalogPage = () => {
           ))}
         </div>
       )}
-    </Container>
+      {/* </div> */}
+    </PageWrapper>
   );
 };
 export default CatalogPage;
