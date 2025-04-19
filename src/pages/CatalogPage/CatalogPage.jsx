@@ -18,15 +18,15 @@ import PageWrapper from "../../components/PageWrapper/PageWrapper.jsx";
 // console.log("allCars: ", allCars);
 
 const CatalogPage = () => {
-  const [cars, setCars] = useState([]);
+  const [cars, setCars] = useState(null);
   // console.log("cars: ", cars);
-  const [brands, setBrands] = useState([]);
-  console.log("brands: ", brands);
-  const [prices, setPrices] = useState([]);
+  const [brands, setBrands] = useState(null);
+  // console.log("brands: ", brands);
+  const [prices, setPrices] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log("searchParams: ", searchParams);
+  // console.log("searchParams: ", searchParams);
 
   useEffect(() => {
     setSearchParams("brand");
@@ -48,6 +48,10 @@ const CatalogPage = () => {
   }, []);
 
   useEffect(() => {
+    if (!Array.isArray(cars)) {
+      return;
+    }
+
     let pricesSet = new Set();
     cars.map(car => {
       pricesSet.add(car.rentalPrice);
@@ -65,10 +69,12 @@ const CatalogPage = () => {
       {/* <div className={css.mainWrap}>
         <h2 className="visually-hidden">Catalog Page</h2> */}
 
-      <SearchBar
-        brands={brands}
-        prices={prices}
-      />
+      {Array.isArray(brands) && Array.isArray(prices) && (
+        <SearchBar
+          brands={brands}
+          prices={prices}
+        />
+      )}
 
       {loading && <Loader />}
       {error && (
@@ -78,15 +84,17 @@ const CatalogPage = () => {
         </p>
       )}
 
-      {cars.length > 0 && (
-        <div className={css.grid}>
+      {Array.isArray(cars) && (
+        <ul className={css.grid}>
           {cars.map(car => (
-            <Card
+            <li
               key={car.id}
-              car={car}
-            />
+              className={css.listItem}
+            >
+              <Card car={car} />
+            </li>
           ))}
-        </div>
+        </ul>
       )}
       {/* </div> */}
     </PageWrapper>

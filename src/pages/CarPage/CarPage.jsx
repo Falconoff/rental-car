@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import Container from "../../components/Container/Container";
+// import Container from "../../components/Container/Container";
 import Button from "../../components/Button/Button";
 import {
   CalendarIcon,
@@ -12,10 +12,11 @@ import {
   GearIcon,
 } from "../../assets/Icons/Icons";
 import { fetchCarById } from "../../api/rentalCarsApi";
-
-import css from "./CarPage.module.css";
 import Loader from "../../components/Loader/Loader";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
+
+import { formatMileage } from "../../utils/calc";
+import css from "./CarPage.module.css";
 
 const getAddressArr = data => {
   return data.address.split(",");
@@ -109,10 +110,14 @@ const CarPage = () => {
               </h3>
               <span className={css.carId}>Id: 9582</span>
             </div>
-            <p className={css.location}>
-              <LocationIcon />
-              {addressArray[1]}, {addressArray[2]}
-              &nbsp;&nbsp;&nbsp; Mileage: {car.mileage} km
+            <p className={css.details}>
+              <span className={css.location}>
+                <LocationIcon />
+                {addressArray[1]}, {addressArray[2]}
+              </span>
+              <span className={css.mileage}>
+                Mileage: {formatMileage(car.mileage)} km
+              </span>
             </p>
             <p className={css.price}>${car.rentalPrice}</p>
             <p className={css.description}>

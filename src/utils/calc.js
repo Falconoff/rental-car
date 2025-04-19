@@ -23,3 +23,10 @@ export const makeArrayForMinMileage = maxValue => {
   // console.log("arr: ", arr);
   return arr;
 };
+
+export const formatMileage = value => {
+  let str = value.toString();
+  if (str.length < 4) return str; // Якщо рядок замалий — нічого не змінюємо
+  let pos = str.length - 3; // позиція, куди треба вставити пробіл
+  return str.slice(0, pos) + " " + str.slice(pos);
+};

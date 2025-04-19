@@ -87,7 +87,7 @@ const Select = ({
           )}
         >
           <div className={css.dropdownList}>
-            {optionsArr.length > 0 ? (
+            {Array.isArray(optionsArr) ? (
               <ul>
                 {optionsArr.map(option => {
                   return (

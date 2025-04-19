@@ -1,14 +1,12 @@
 import { Link } from "react-router-dom";
 
 import Button from "../Button/Button";
-import img from "../../images/car-image.jpg";
+import { formatMileage } from "../../utils/calc";
 
 import css from "./Card.module.css";
 
 const Card = ({ car }) => {
-  // console.log("car: ", car);
   let carAddress = car.address.split(",");
-  // console.log("carAddress: ", carAddress);
 
   return (
     <div className={css.card}>
@@ -30,7 +28,7 @@ const Card = ({ car }) => {
         <span>{carAddress[2]}</span>|
         <span>{car.rentalCompany}</span>|
         <span>{car.type}</span>|
-        <span>{car.mileage} km</span>
+        <span>{formatMileage(car.mileage)} km</span>
       </p>
       <Link
         to={`${car.id}`}
