@@ -14,6 +14,11 @@ import {
 import css from "./CatalogPage.module.css";
 import Loader from "../../components/Loader/Loader.jsx";
 import PageWrapper from "../../components/PageWrapper/PageWrapper.jsx";
+import ErrorMsg from "../../components/ErrorMsg/ErrorMsg.jsx";
+import {
+  makePricesArray,
+  findMaxMileage,
+} from "../../utils/calc.js";
 
 // console.log("allCars: ", allCars);
 
@@ -23,23 +28,28 @@ const CatalogPage = () => {
   const [brands, setBrands] = useState(null);
   // console.log("brands: ", brands);
   const [prices, setPrices] = useState(null);
+  const [maxMileage, setMaxMileage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [error, setError] = useState(null);
+  // console.log("error: ", error);
+  // const [searchParams, setSearchParams] = useSearchParams();
   // console.log("searchParams: ", searchParams);
 
   useEffect(() => {
-    setSearchParams("brand");
+    // setSearchParams("brand");
     async function fetchRentalCars() {
       try {
         setLoading(true);
         const carsResponse = await fetchAllCars();
         const brandsResponse = await fetchBrands();
 
+        // throw new Error("Server is down");
+
         setCars(carsResponse.cars);
         setBrands(brandsResponse.data);
+        // setPrices(makePricesArray(cars));
       } catch (error) {
-        setError(true);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -51,17 +61,10 @@ const CatalogPage = () => {
     if (!Array.isArray(cars)) {
       return;
     }
-
-    let pricesSet = new Set();
-    cars.map(car => {
-      pricesSet.add(car.rentalPrice);
-    });
-    let sortedPricesArr = Array.from(pricesSet.keys()).sort(
-      (a, b) => {
-        return a - b;
-      },
-    );
-    setPrices(sortedPricesArr);
+    setPrices(makePricesArray(cars));
+    setMaxMileage(findMaxMileage(cars));
+    // console.log("maxMileage: ", maxMileage);
+    // console.log("prices: ", prices);
   }, [cars]);
 
   return (
@@ -73,16 +76,18 @@ const CatalogPage = () => {
         <SearchBar
           brands={brands}
           prices={prices}
+          maxMileage={maxMileage}
+          // onSelectBrand={handleClickBrand}
+          // onSelectPrice={handleClickPrice}
+          // onSelectMin={handleClickMin}
+          // onSelectMax={handleClickMax}
+          // valueFrom={minMileageSelected}
+          // valueTo={maxMileageSelected}
         />
       )}
 
       {loading && <Loader />}
-      {error && (
-        <p>
-          Whoops, something went wrong! Please try reloading
-          this page!
-        </p>
-      )}
+      {error && <ErrorMsg text={error} />}
 
       {Array.isArray(cars) && (
         <ul className={css.grid}>

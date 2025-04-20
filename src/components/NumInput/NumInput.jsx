@@ -8,7 +8,7 @@ import {
 
 import css from "./NumInput.module.css";
 
-let maxMileage = 6700;
+// let maxMileage = 6700;
 
 const NumInput = ({
   maxMileage,

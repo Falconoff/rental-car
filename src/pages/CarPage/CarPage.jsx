@@ -17,6 +17,7 @@ import PageWrapper from "../../components/PageWrapper/PageWrapper";
 
 import { formatMileage } from "../../utils/calc";
 import css from "./CarPage.module.css";
+import ErrorMsg from "../../components/ErrorMsg/ErrorMsg";
 
 const getAddressArr = data => {
   return data.address.split(",");
@@ -52,13 +53,7 @@ const CarPage = () => {
         <h2 className={"visually-hidden"}>Car Page</h2> */}
 
       {loading && <Loader />}
-
-      {error && (
-        <p>
-          Whoops, something went wrong! Please try reloading
-          this page!
-        </p>
-      )}
+      {error && <ErrorMsg text={error} />}
 
       {car.brand && (
         <div className={css.wrapper}>

@@ -21,15 +21,20 @@ import css from "./SearchBar.module.css";
 //   "Volvo",
 // ];
 // let priceArr = [10, 20, 30, 40, 50, 60];
-let maxMileage = "5700";
+// let maxMileage = "5700";
 
-const SearchBar = ({ brands, prices }) => {
-  const [carBrand, setCarBrand] = useState("");
-  const [price, setPrice] = useState("");
+const SearchBar = ({ brands, prices, maxMileage }) => {
+  const [carBrand, setCarBrand] = useState(null);
+  const [price, setPrice] = useState(null);
   const [minMileageSelected, setMinMileageSelected] =
     useState("");
   const [maxMileageSelected, setMaxMileageSelected] =
     useState("");
+
+  console.log("carBrand: ", carBrand);
+  console.log("price: ", price);
+  console.log("minMileageSelected: ", minMileageSelected);
+  console.log("maxMileageSelected: ", maxMileageSelected);
 
   const handleClickBrand = brand => {
     setCarBrand(brand);

@@ -30,3 +30,29 @@ export const formatMileage = value => {
   let pos = str.length - 3; // позиція, куди треба вставити пробіл
   return str.slice(0, pos) + " " + str.slice(pos);
 };
+
+export const makePricesArray = carsArray => {
+  let pricesSet = new Set();
+  // зберігаємо тільки унікальні значення ціни
+  carsArray.map(car => {
+    pricesSet.add(car.rentalPrice);
+  });
+
+  let sortedPricesArr = Array.from(pricesSet.keys()).sort(
+    (a, b) => {
+      return a - b;
+    },
+  );
+  // console.log("sortedPricesArr: ", sortedPricesArr);
+  return sortedPricesArr;
+};
+
+export const findMaxMileage = carsArray => {
+  let maxMileage = 0;
+  carsArray.map(car => {
+    if (car.mileage > maxMileage) {
+      maxMileage = car.mileage;
+    }
+  });
+  return maxMileage;
+};
