@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import toast, { Toaster } from "react-hot-toast";
+
 // import allCars from "../../all-cars-response.json";
 import Card from "../../components/Card/Card";
 import Container from "../../components/Container/Container";
@@ -31,9 +33,12 @@ const CatalogPage = () => {
   const [maxMileage, setMaxMileage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [filterSearchParams, setFilterSearchParams] =
+    useState({});
   // console.log("error: ", error);
   // const [searchParams, setSearchParams] = useSearchParams();
   // console.log("searchParams: ", searchParams);
+  console.log("filterSearchParams: ", filterSearchParams);
 
   useEffect(() => {
     // setSearchParams("brand");
@@ -50,6 +55,7 @@ const CatalogPage = () => {
         // setPrices(makePricesArray(cars));
       } catch (error) {
         setError(error.message);
+        toast.error("Ooops! Something went wrong!");
       } finally {
         setLoading(false);
       }
@@ -65,10 +71,16 @@ const CatalogPage = () => {
     setMaxMileage(findMaxMileage(cars));
     // console.log("maxMileage: ", maxMileage);
     // console.log("prices: ", prices);
+    toast.success("Successfully fetched!");
   }, [cars]);
+
+  const handleSearch = params => {
+    setFilterSearchParams(params);
+  };
 
   return (
     <PageWrapper title="Catalog Page">
+      {/* <Toaster /> */}
       {/* <div className={css.mainWrap}>
         <h2 className="visually-hidden">Catalog Page</h2> */}
 
@@ -83,6 +95,7 @@ const CatalogPage = () => {
           // onSelectMax={handleClickMax}
           // valueFrom={minMileageSelected}
           // valueTo={maxMileageSelected}
+          handleSearch={handleSearch}
         />
       )}
 
@@ -102,6 +115,7 @@ const CatalogPage = () => {
         </ul>
       )}
       {/* </div> */}
+      <Toaster />
     </PageWrapper>
   );
 };

@@ -1,5 +1,6 @@
 import { useId, useState } from "react";
 import clsx from "clsx";
+import toast, { Toaster } from "react-hot-toast";
 
 import Button from "../Button/Button";
 import Select from "../Select/Select";
@@ -23,25 +24,31 @@ import css from "./SearchBar.module.css";
 // let priceArr = [10, 20, 30, 40, 50, 60];
 // let maxMileage = "5700";
 
-const SearchBar = ({ brands, prices, maxMileage }) => {
-  const [carBrand, setCarBrand] = useState(null);
-  const [price, setPrice] = useState(null);
+const SearchBar = ({
+  brands,
+  prices,
+  maxMileage,
+  handleSearch,
+}) => {
+  const [carBrandSelected, setCarBrandSelected] =
+    useState(null);
+  const [priceSelected, setPriceSelected] = useState(null);
   const [minMileageSelected, setMinMileageSelected] =
     useState("");
   const [maxMileageSelected, setMaxMileageSelected] =
     useState("");
 
-  console.log("carBrand: ", carBrand);
-  console.log("price: ", price);
-  console.log("minMileageSelected: ", minMileageSelected);
-  console.log("maxMileageSelected: ", maxMileageSelected);
+  // console.log("carBrandSelected: ", carBrandSelected);
+  // console.log("priceSelected: ", priceSelected);
+  // console.log("minMileageSelected: ", minMileageSelected);
+  // console.log("maxMileageSelected: ", maxMileageSelected);
 
   const handleClickBrand = brand => {
-    setCarBrand(brand);
+    setCarBrandSelected(brand);
   };
 
   const handleClickPrice = price => {
-    setPrice(price);
+    setPriceSelected(price);
   };
 
   const handleClickMin = value => {
@@ -51,13 +58,40 @@ const SearchBar = ({ brands, prices, maxMileage }) => {
     setMaxMileageSelected(value);
   };
 
+  const onSearch = () => {
+    console.log("onSearch clicked!");
+
+    if (minMileageSelected > maxMileageSelected) {
+      toast.error(
+        "FROM mileage should be less than TO mileage!",
+      );
+      return;
+    }
+
+    handleSearch({
+      carBrandSelected,
+      priceSelected,
+      minMileageSelected,
+      maxMileageSelected,
+    });
+  };
+
+  const onReset = () => {
+    setCarBrandSelected(null);
+    setPriceSelected(null);
+    setMinMileageSelected("");
+    setMaxMileageSelected("");
+  };
+
   return (
     <div className={css.searchBar}>
+      <Toaster />
+
       <Select
         optionsArr={brands}
         labelText={"Car brand"}
         placeholder={"Choose a brand"}
-        value={carBrand}
+        value={carBrandSelected}
         onSelect={handleClickBrand}
       />
       <Select
@@ -65,7 +99,7 @@ const SearchBar = ({ brands, prices, maxMileage }) => {
         labelText={"Price / 1 hour"}
         isPrice
         placeholder={"Choose a price"}
-        value={price}
+        value={priceSelected}
         onSelect={handleClickPrice}
       />
 
@@ -80,6 +114,13 @@ const SearchBar = ({ brands, prices, maxMileage }) => {
       <Button
         text="Search"
         narrow
+        onClick={onSearch}
+      />
+
+      <Button
+        text="Reset"
+        narrow
+        onClick={onReset}
       />
     </div>
   );

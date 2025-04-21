@@ -7,6 +7,7 @@ const Button = ({
   wide,
   narrow,
   type = "button",
+  onClick,
 }) => {
   return (
     <button
@@ -16,6 +17,7 @@ const Button = ({
         narrow && css.narrow,
       )}
       type={type}
+      onClick={onClick}
     >
       {text}
     </button>
