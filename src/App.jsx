@@ -28,11 +28,6 @@ function App() {
             element={<CarPage />}
           />
           <Route
-            path="*"
-            element={<HomePage />}
-          />
-
-          <Route
             path="/*"
             element={<NotFoundPage />}
           />
