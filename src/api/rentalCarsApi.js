@@ -11,11 +11,12 @@ axios.defaults.baseURL =
 //   per_page: 4,
 // };
 
-export const fetchAllCars = async () => {
+export const fetchAllCars = async page => {
   const { data } = await axios.get(
     // `?client_id=${ACCESS_KEY}&query=${searchValue}&page=${page}`,
     // `?brand=${brand}&rentalPrice=${rentalPrice}&minMileage=${minMileage}&maxMileage=${maxMileage}&limit=${limit}&page=${page}`,
-    "/cars",
+    // "/cars",
+    `/cars?page=${page}`,
   );
 
   return data;
@@ -34,7 +35,7 @@ export const fetchBrands = async () => {
   return data;
 };
 
-export const fetchCar = async (
+export const fetchCarsBySearchParams = async (
   brand,
   rentalPrice,
   page,

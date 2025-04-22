@@ -1,0 +1,28 @@
+.loadMoreBtn {
+  display: block;
+  width: 156px;
+  height: 44px;
+  padding: 12px 10px;
+
+  margin: 0 auto;
+
+  border: 1px solid var(--accent-color);
+  border-radius: 12px;
+  background-color: var(--white-color);
+
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--text-main-color);
+
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition-duration: var(--trans-duration);
+  transition-timing-function: var(--timing-function);
+}
+
+.loadMoreBtn:hover {
+  outline: none;
+  background-color: var(--accent-color);
+  color: var(--white-color);
+}

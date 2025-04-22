@@ -21,6 +21,7 @@ import {
   makePricesArray,
   findMaxMileage,
 } from "../../utils/calc.js";
+import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn.jsx";
 
 // console.log("allCars: ", allCars);
 
@@ -35,24 +36,38 @@ const CatalogPage = () => {
   const [error, setError] = useState(null);
   const [filterSearchParams, setFilterSearchParams] =
     useState({});
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(null);
   // console.log("error: ", error);
   // const [searchParams, setSearchParams] = useSearchParams();
   // console.log("searchParams: ", searchParams);
-  console.log("filterSearchParams: ", filterSearchParams);
+  // console.log("filterSearchParams: ", filterSearchParams);
+
+  const onLoadMore = () => {
+    setPage(page + 1);
+  };
 
   useEffect(() => {
-    // setSearchParams("brand");
     async function fetchRentalCars() {
       try {
         setLoading(true);
-        const carsResponse = await fetchAllCars();
+        const carsResponse = await fetchAllCars(page);
         const brandsResponse = await fetchBrands();
 
         // throw new Error("Server is down");
 
-        setCars(carsResponse.cars);
+        if (page !== 1) {
+          setCars(prevCars => [
+            ...prevCars,
+            ...carsResponse.cars,
+          ]);
+        } else {
+          setCars(carsResponse.cars);
+        }
+
+        setTotalPages(carsResponse.totalPages);
+
         setBrands(brandsResponse.data);
-        // setPrices(makePricesArray(cars));
       } catch (error) {
         setError(error.message);
         toast.error("Ooops! Something went wrong!");
@@ -61,7 +76,7 @@ const CatalogPage = () => {
       }
     }
     fetchRentalCars();
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     if (!Array.isArray(cars)) {
@@ -69,8 +84,7 @@ const CatalogPage = () => {
     }
     setPrices(makePricesArray(cars));
     setMaxMileage(findMaxMileage(cars));
-    // console.log("maxMileage: ", maxMileage);
-    // console.log("prices: ", prices);
+
     toast.success("Successfully fetched!");
   }, [cars]);
 
@@ -80,10 +94,6 @@ const CatalogPage = () => {
 
   return (
     <PageWrapper title="Catalog Page">
-      {/* <Toaster /> */}
-      {/* <div className={css.mainWrap}>
-        <h2 className="visually-hidden">Catalog Page</h2> */}
-
       {Array.isArray(brands) && Array.isArray(prices) && (
         <SearchBar
           brands={brands}
@@ -99,10 +109,13 @@ const CatalogPage = () => {
         />
       )}
 
-      {loading && <Loader />}
       {error && <ErrorMsg text={error} />}
 
-      {Array.isArray(cars) && (
+      {Array.isArray(cars) &&
+        cars.length === 0 &&
+        toast.error("No cars found!")}
+
+      {Array.isArray(cars) && cars.length > 0 && (
         <ul className={css.grid}>
           {cars.map(car => (
             <li
@@ -114,8 +127,13 @@ const CatalogPage = () => {
           ))}
         </ul>
       )}
-      {/* </div> */}
+
       <Toaster />
+      {loading && <Loader />}
+
+      {totalPages > page && (
+        <LoadMoreBtn onLoadMore={onLoadMore} />
+      )}
     </PageWrapper>
   );
 };
