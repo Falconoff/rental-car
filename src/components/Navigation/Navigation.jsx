@@ -19,6 +19,7 @@ const Navigation = () => {
       <NavLink
         to="/catalog"
         className={buildLinkClass}
+        end
       >
         Catalog
       </NavLink>

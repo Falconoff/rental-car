@@ -34,9 +34,9 @@ const SearchBar = ({
     useState(null);
   const [priceSelected, setPriceSelected] = useState(null);
   const [minMileageSelected, setMinMileageSelected] =
-    useState("");
+    useState(null);
   const [maxMileageSelected, setMaxMileageSelected] =
-    useState("");
+    useState(null);
 
   // console.log("carBrandSelected: ", carBrandSelected);
   // console.log("priceSelected: ", priceSelected);
@@ -59,7 +59,7 @@ const SearchBar = ({
   };
 
   const onSearch = () => {
-    console.log("onSearch clicked!");
+    // console.log("onSearch clicked!");
 
     if (minMileageSelected > maxMileageSelected) {
       toast.error(
@@ -69,10 +69,10 @@ const SearchBar = ({
     }
 
     handleSearch({
-      carBrandSelected,
-      priceSelected,
-      minMileageSelected,
-      maxMileageSelected,
+      brand: carBrandSelected,
+      rentalPrice: priceSelected,
+      minMileage: minMileageSelected,
+      maxMileage: maxMileageSelected,
     });
   };
 
@@ -81,6 +81,7 @@ const SearchBar = ({
     setPriceSelected(null);
     setMinMileageSelected("");
     setMaxMileageSelected("");
+    handleSearch({});
   };
 
   return (
@@ -107,8 +108,16 @@ const SearchBar = ({
         maxMileage={maxMileage}
         onSelectMin={handleClickMin}
         onSelectMax={handleClickMax}
-        valueFrom={minMileageSelected}
-        valueTo={maxMileageSelected}
+        valueFrom={
+          minMileageSelected !== null
+            ? minMileageSelected
+            : ""
+        }
+        valueTo={
+          maxMileageSelected !== null
+            ? maxMileageSelected
+            : ""
+        }
       />
 
       <Button

@@ -9,8 +9,9 @@ import Container from "../../components/Container/Container";
 import SearchBar from "../../components/SearchBar/SearchBar";
 
 import {
-  fetchAllCars,
+  fetchCars,
   fetchBrands,
+  // fetchCarsBySearchParams,
 } from "../../api/rentalCarsApi.js";
 
 import css from "./CatalogPage.module.css";
@@ -34,27 +35,55 @@ const CatalogPage = () => {
   const [maxMileage, setMaxMileage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [filterSearchParams, setFilterSearchParams] =
-    useState({});
+  const [searchParams, setSearchParams] = useState({});
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
   // console.log("error: ", error);
-  // const [searchParams, setSearchParams] = useSearchParams();
   // console.log("searchParams: ", searchParams);
-  // console.log("filterSearchParams: ", filterSearchParams);
+  // console.log("SearchParams: ", searchParams);
 
   const onLoadMore = () => {
     setPage(page + 1);
   };
 
+  // --- fetch brands ---
+  useEffect(() => {
+    // console.log("fetch brands");
+
+    async function getBrands() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const brandsResponse = await fetchBrands();
+        setBrands(brandsResponse.data);
+      } catch (error) {
+        setError(error.message);
+        toast.error("Ooops! Something went wrong!");
+      } finally {
+        setLoading(false);
+      }
+    }
+    getBrands();
+  }, []);
+
+  // --- fetch cars ---
   useEffect(() => {
     async function fetchRentalCars() {
       try {
         setLoading(true);
-        const carsResponse = await fetchAllCars(page);
-        const brandsResponse = await fetchBrands();
+        setError(null);
+
+        const carsResponse = await fetchCars(
+          page,
+          searchParams,
+        );
 
         // throw new Error("Server is down");
+
+        if (carsResponse.cars.length === 0) {
+          toast.error("No cars found!");
+        }
 
         if (page !== 1) {
           setCars(prevCars => [
@@ -66,8 +95,6 @@ const CatalogPage = () => {
         }
 
         setTotalPages(carsResponse.totalPages);
-
-        setBrands(brandsResponse.data);
       } catch (error) {
         setError(error.message);
         toast.error("Ooops! Something went wrong!");
@@ -76,20 +103,24 @@ const CatalogPage = () => {
       }
     }
     fetchRentalCars();
-  }, [page]);
+  }, [page, searchParams]);
 
+  // --- коли отримали масив машин, то заповнюємо масив цін
+  // та максимальний пробіг ---
   useEffect(() => {
-    if (!Array.isArray(cars)) {
+    if (!Array.isArray(cars) || cars.length === 0) {
       return;
     }
     setPrices(makePricesArray(cars));
     setMaxMileage(findMaxMileage(cars));
 
-    toast.success("Successfully fetched!");
+    // toast.success("Successfully fetched!");
   }, [cars]);
 
   const handleSearch = params => {
-    setFilterSearchParams(params);
+    setSearchParams(params);
+    setPage(1);
+    setCars(null);
   };
 
   return (
@@ -99,21 +130,15 @@ const CatalogPage = () => {
           brands={brands}
           prices={prices}
           maxMileage={maxMileage}
-          // onSelectBrand={handleClickBrand}
-          // onSelectPrice={handleClickPrice}
-          // onSelectMin={handleClickMin}
-          // onSelectMax={handleClickMax}
-          // valueFrom={minMileageSelected}
-          // valueTo={maxMileageSelected}
           handleSearch={handleSearch}
         />
       )}
 
       {error && <ErrorMsg text={error} />}
 
-      {Array.isArray(cars) &&
+      {/* {Array.isArray(cars) &&
         cars.length === 0 &&
-        toast.error("No cars found!")}
+        toast.error("No cars found!")} */}
 
       {Array.isArray(cars) && cars.length > 0 && (
         <ul className={css.grid}>
