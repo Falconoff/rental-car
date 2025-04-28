@@ -1,12 +1,16 @@
 import axios from "axios";
 
-axios.defaults.baseURL =
-  "https://car-rental-api.goit.global";
+const carsInstance = axios.create({
+  baseURL: "https://car-rental-api.goit.global",
+  params: {
+    limit: 6,
+  },
+});
 
 export const fetchCars = async (page, searchParams) => {
   const { brand, rentalPrice, minMileage, maxMileage } =
     searchParams;
-  const { data } = await axios.get(`/cars`, {
+  const { data } = await carsInstance.get(`/cars`, {
     params: {
       ...(page && { page }),
       ...(brand && { brand }),
@@ -20,13 +24,13 @@ export const fetchCars = async (page, searchParams) => {
 };
 
 export const fetchCarById = async id => {
-  const { data } = await axios.get(`/cars/${id}`);
+  const { data } = await carsInstance.get(`/cars/${id}`);
 
   return data;
 };
 
 export const fetchBrands = async () => {
-  const data = await axios.get(`/brands`);
+  const data = await carsInstance.get(`/brands`);
   // console.log("data: ", data);
 
   return data;
