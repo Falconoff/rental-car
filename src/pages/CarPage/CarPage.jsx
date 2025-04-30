@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-// import Container from "../../components/Container/Container";
-import Button from "../../components/Button/Button";
 import {
   CalendarIcon,
   CheckIcon,
@@ -11,13 +9,15 @@ import {
   FuelPumpIcon,
   GearIcon,
 } from "../../assets/Icons/Icons";
-import { fetchCarById } from "../../api/rentalCarsApi";
 import Loader from "../../components/Loader/Loader";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
-
-import { formatMileage } from "../../utils/calc";
-import css from "./CarPage.module.css";
 import ErrorMsg from "../../components/ErrorMsg/ErrorMsg";
+import Form from "../../components/Form/Form";
+
+import { fetchCarById } from "../../api/rentalCarsApi";
+import { formatMileage } from "../../utils/calc";
+
+import css from "./CarPage.module.css";
 
 const getAddressArr = data => {
   return data.address.split(",");
@@ -35,7 +35,6 @@ const CarPage = () => {
       try {
         setLoading(true);
         const data = await fetchCarById(carId);
-        // console.log("data: ", data);
         setAddressArray(getAddressArr(data));
         setCar(data);
       } catch (error) {
@@ -49,9 +48,6 @@ const CarPage = () => {
 
   return (
     <PageWrapper title="Car Page">
-      {/* <Container>
-        <h2 className={"visually-hidden"}>Car Page</h2> */}
-
       {loading && <Loader />}
       {error && <ErrorMsg text={error} />}
 
@@ -63,39 +59,7 @@ const CarPage = () => {
               alt={car.brand + " " + car.model}
               className={css.carImage}
             />
-            <form className={css.form}>
-              <h3 className={css.formTitle}>
-                Book your car now
-              </h3>
-              <p className={css.formText}>
-                Stay connected! We are always ready to help
-                you.
-              </p>
-              <div className={css.inputsWrap}>
-                <input
-                  type="text"
-                  placeholder="Name*"
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Email*"
-                  required
-                />
-                <input
-                  type="date"
-                  placeholder="Booking date"
-                />
-                <textarea placeholder="Comment"></textarea>
-              </div>
-
-              {/* <button type="submit">Send</button> */}
-              <Button
-                text="Send"
-                narrow
-                type="submit"
-              />
-            </form>
+            <Form />
           </div>
 
           <div className={css.rightColumn}>
@@ -180,7 +144,6 @@ const CarPage = () => {
           </div>
         </div>
       )}
-      {/* </Container> */}
     </PageWrapper>
   );
 };
