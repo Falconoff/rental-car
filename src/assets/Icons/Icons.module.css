@@ -2,4 +2,9 @@
   width: 16px;
   height: 16px;
   fill: currentColor;
+  display: block;
+}
+
+.heartFilled {
+  fill: var(--accent-color);
 }

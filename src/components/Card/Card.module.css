@@ -4,11 +4,36 @@
   height: 424px;
 }
 
+.favoriteBtn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
+  border: none;
+  background-color: transparent;
+  color: var(--badges-color);
+
+  cursor: pointer;
+  transition: color var(--trans-duration)
+    var(--timing-function);
+}
+
+.favoriteBtn:hover {
+  color: var(--accent-color);
+}
+
 .img {
-  border-radius: 14px;
+  margin-bottom: 16px;
   width: 276px;
   height: 268px;
-  margin-bottom: 16px;
+  border-radius: 14px;
 
   object-fit: cover;
 }

@@ -1,5 +1,6 @@
 import sprite from "../../images/sprite.svg";
 
+import clsx from "clsx";
 import css from "./Icons.module.css";
 
 export const ArrDownIcon = () => {
@@ -58,10 +59,18 @@ export const GearIcon = () => {
   );
 };
 
-export const HeartIcon = () => {
+export const HeartEmptyIcon = () => {
   return (
     <svg className={css.icon}>
-      <use href={sprite + "#icon-heart"} />
+      <use href={sprite + "#icon-heart-empty"} />
+    </svg>
+  );
+};
+
+export const HeartFilledIcon = () => {
+  return (
+    <svg className={clsx(css.icon, css.heartFilled)}>
+      <use href={sprite + "#icon-heart-filled"} />
     </svg>
   );
 };
